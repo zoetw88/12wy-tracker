@@ -1,0 +1,91 @@
+{
+  "schema": "12wy-tracker.preference-cases",
+  "version": 1,
+  "description": "Preference-based eval cases for subjective 12 Week Year coach outputs. These are not exact-match answers.",
+  "rubric_dimensions": [
+    "specificity",
+    "12_week_year_fit",
+    "actionability",
+    "uses_user_context",
+    "avoids_generic_encouragement"
+  ],
+  "cases": [
+    {
+      "id": "weekly_review_style_001",
+      "prompt_key": "weekly_review",
+      "prompt_version": "v1",
+      "source": "curated_failure_replay",
+      "regression": true,
+      "input_context": {
+        "task": "Generate weekly review coaching for a user whose language study is on track but running is behind.",
+        "weekly_summary": "Week 3: French listening 44/40 and writing 5/5 complete. Running 1/3 sessions and 8/24km complete. User wrote: 'Running plan did not happen; rain was an excuse.'"
+      },
+      "preferred_output": "法語這週不是問題，真正的風險是跑步被天氣和行程吃掉。下週不要把跑步寫成『有空就跑』，請直接排三個 30 分鐘固定時段；如果下雨，改成跑步機或室內 Zone 2，不能讓天氣決定。優先順序：先保住法語節奏，再把跑步恢復到 2 次，第三次當 bonus。",
+      "rejected_output": "你這週做得很好，繼續保持。下週要更努力安排時間，保持正向心態，相信自己可以完成所有目標。",
+      "preference_reason": [
+        "preferred output names the actual lagging goal",
+        "preferred output uses the user's rain excuse note",
+        "preferred output gives concrete next-week actions",
+        "rejected output is generic encouragement"
+      ],
+      "rubric": {
+        "specificity": 5,
+        "12_week_year_fit": 5,
+        "actionability": 5,
+        "uses_user_context": 5,
+        "avoids_generic_encouragement": 5
+      }
+    },
+    {
+      "id": "priority_actionability_001",
+      "prompt_key": "suggest_priority",
+      "prompt_version": "v1",
+      "source": "curated_edge_case",
+      "regression": true,
+      "input_context": {
+        "task": "Choose today's priorities when the user is behind on interview prep and low on recovery.",
+        "daily_state": "Week 8, 28 days left. LeetCode is 22 problems behind. Running is 15 sessions behind. Sleep 5h, HRV 40, mood 1 yesterday."
+      },
+      "preferred_output": "今天不要同時追 LC 和跑步量。主線只放兩件事：1) LC 2 題，其中 1 題必須完整寫下解法復盤；2) 20 分鐘低強度走路或伸展，目的不是補跑量，是恢復 HRV。今晚 22:30 前睡，否則明天的追趕會繼續掉線。",
+      "rejected_output": "今天可以安排 LeetCode、跑步、休息和學習，每一項都做一點，讓自己回到正軌。",
+      "preference_reason": [
+        "preferred output makes a tradeoff instead of listing everything",
+        "preferred output references 22 problems behind, low HRV, and sleep",
+        "preferred output explains why recovery is part of execution",
+        "rejected output overloads the day"
+      ],
+      "rubric": {
+        "specificity": 5,
+        "12_week_year_fit": 4,
+        "actionability": 5,
+        "uses_user_context": 5,
+        "avoids_generic_encouragement": 4
+      }
+    },
+    {
+      "id": "goal_design_style_001",
+      "prompt_key": "create_goal_design",
+      "prompt_version": "v1",
+      "source": "curated_style_pair",
+      "regression": false,
+      "input_context": {
+        "task": "Turn a vague user goal into a measurable 12-week target.",
+        "goal": "I want to become better at writing technical essays so I can publish more consistently."
+      },
+      "preferred_output": "12 週終點：完成並發布 6 篇 900-1400 字技術文章，其中至少 3 篇來自真實專案決策或踩坑復盤。每週固定產出：1 個 outline、1 個 draft、1 次 revision。衡量方式不是『有沒有變好』，而是發布篇數、每篇是否有具體例子、以及是否能清楚說出一個工程取捨。",
+      "rejected_output": "你的目標是提升技術寫作能力。接下來 12 週請多閱讀、多練習、多反思，逐步建立自己的寫作風格。",
+      "preference_reason": [
+        "preferred output turns vague writing improvement into measurable delivery",
+        "preferred output defines weekly cadence",
+        "preferred output avoids abstract self-improvement language"
+      ],
+      "rubric": {
+        "specificity": 5,
+        "12_week_year_fit": 5,
+        "actionability": 5,
+        "uses_user_context": 4,
+        "avoids_generic_encouragement": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+# DEV-ONLY promptfoo eval harness — never shipped in the production Tauri app bundle.
+#
+# Provider API keys are read from environment variables at runtime.
+# NEVER commit keys to this file or to .env.
+# Set before running:
+#   export OPENAI_API_KEY=sk-...
+#   export GEMINI_API_KEY=AIza...   (or GOOGLE_API_KEY)
+#   export ANTHROPIC_API_KEY=sk-ant-...   (only if using the rubric grader below)
+#
+# Run: cd eval && npm install && npm run eval
+# View: npm run view
+#
+# promptfoo loads .ts files via its bundled tsx transformer; no separate tsc step needed.
+
+description: "zoe-12wy LLM quality eval — goal-design / priority / weekly-review"
+
+# ── Prompt functions ────────────────────────────────────────────────────────────
+# Each function receives promptfoo's context ({ vars, ... }) and returns the
+# chat messages array the prompt builder produces.
+prompts:
+  - file://prompts.ts:goalDesignPrompt
+  - file://prompts.ts:priorityPrompt
+  - file://prompts.ts:weeklyReviewPrompt
+
+# ── Providers (candidate models) ────────────────────────────────────────────────
+# ≥2 cheap candidate models. Keys are read from env at run time; missing keys
+# cause a clear promptfoo error rather than silent failure.
+#
+# Swappable alternatives (honor swappability ADR — just uncomment/replace):
+#   - id: openai:gpt-4.1-nano          # even cheaper than gpt-4o-mini
+#   - id: deepseek:deepseek-chat        # requires DEEPSEEK_API_KEY
+#   - id: openrouter:openai/gpt-4o-mini # requires OPENROUTER_API_KEY
+#   - id: anthropic:claude-3-haiku-20240307
+providers:
+  - id: openai:gpt-4o-mini
+    config:
+      temperature: 0.3
+  - id: google:gemini-2.0-flash
+    config:
+      temperature: 0.3
+
+# ── Default assertions (applied to EVERY test case across all prompts) ──────────
+defaultTest:
+  options:
+    # Fail on provider errors so misconfigurations surface immediately
+    onFailure: continue
+  assert:
+    # ── 1. LLM-rubric (LLM-as-judge) ──────────────────────────────────────────
+    # Grader should be STRONGER than the candidate models above.
+    # Using gpt-4o here; swap to anthropic:claude-3-5-sonnet-20241022 if preferred.
+    # Requires OPENAI_API_KEY (or ANTHROPIC_API_KEY if using Claude grader).
+    - type: llm-rubric
+      value: |
+        你是一位嚴格的 AI 回應品質評審。請根據以下四個維度，對這份回應打分（每項 1–5 分）：
+
+        1. 可行動性 (Actionability): 回應是否包含使用者可立即執行的具體步驟或建議？
+        2. 具體性 (Specificity): 建議是否針對使用者的具體情境（目標、數據、備注），而非泛泛而談？
+        3. 格式遵循 (Format adherence): 回應是否符合 prompt 要求的輸出格式（JSON array、markdown 段落等）？
+        4. 中文品質 (Chinese quality): 回應的中文是否流暢、自然、無機翻味？
+
+        請輸出 0–1 之間的綜合分數（1 = 全部達到高標準，0 = 嚴重不符）並說明理由。
+      provider:
+        # Grader model — deliberately stronger than the candidate models above.
+        # Replace with anthropic:claude-3-5-sonnet-20241022 if you prefer Anthropic.
+        id: openai:gpt-4o
+
+    # ── 2. Chinese-language check ──────────────────────────────────────────────
+    # Verifies the output is predominantly Chinese (CJK ratio > 0.20).
+    # Uses a JS file assertion so the check is explicit and tunable.
+    - type: javascript
+      value: file://assertions/is_zh.js
+
+    # ── 3. References fixture data ─────────────────────────────────────────────
+    # Heuristic: output must mention at least one string var from the fixture
+    # (e.g. a date, a label, a note). Guards against generic/hallucinated responses.
+    # Written generically — reads context.vars at runtime.
+    - type: javascript
+      value: file://assertions/references_data.js
+
+# ── Test fixtures ───────────────────────────────────────────────────────────────
+# priority_cases.yaml also carries per-case `assert: parses_priority.js`
+# (only priority cases — goal-design and weekly-review produce prose, not JSON).
+tests:
+  - path: fixtures/goal_design_cases.yaml
+  - path: fixtures/priority_cases.yaml
+  - path: fixtures/weekly_review_cases.yaml

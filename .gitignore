@@ -1,0 +1,21 @@
+# Dependencies / build output
+node_modules/
+dist/
+/app/dist/
+/app/src-tauri/target/
+
+# Env / local
+.env.local
+.env*.local
+*.log
+
+# Sidecar runtime
+sidecar/__pycache__/
+sidecar/garmin_profile/
+sidecar/garmin_out/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

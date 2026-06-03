@@ -1,0 +1,30 @@
+# Synthetic goal-design fixtures — FAKE data, no real user info.
+# These supply `vars.goal` for the goalDesignPrompt shim.
+
+- description: "Vague fitness goal — model should sharpen into measurable 12-week outcome"
+  vars:
+    goal:
+      id: 1
+      name: "每週跑步 3 次"
+      description: "想變得更健康、跑步跑更快"
+      why: "維持體能，備戰年底的半馬"
+      target_text: "跑得更好"
+      weight: 20
+      active: 1
+      sort_order: 1
+      persona: null
+      context_json: null
+
+- description: "Language learning goal — model should add concrete DELF/TCF milestone"
+  vars:
+    goal:
+      id: 2
+      name: "法語 B2 備考"
+      description: "目前 B1+，需要在 12 週內準備 TCF 考試"
+      why: "申請移民需要語言成績"
+      target_text: "通過 TCF B2"
+      weight: 30
+      active: 1
+      sort_order: 2
+      persona: null
+      context_json: null

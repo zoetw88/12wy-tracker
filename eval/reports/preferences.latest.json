@@ -1,0 +1,73 @@
+{
+  "schema": "12wy-tracker.preference-report",
+  "version": 1,
+  "generated_at": "2026-06-03T05:11:32.183Z",
+  "source_dataset": "eval/preferences/coach_preference_cases.json",
+  "note": "Preference dataset artifact only. Pairwise judge runs require provider keys and human calibration before being used as a release gate.",
+  "summary": {
+    "total_cases": 3,
+    "regression_cases": 2,
+    "prompt_keys": {
+      "weekly_review": 1,
+      "suggest_priority": 1,
+      "create_goal_design": 1
+    },
+    "rubric_dimensions": [
+      "specificity",
+      "12_week_year_fit",
+      "actionability",
+      "uses_user_context",
+      "avoids_generic_encouragement"
+    ]
+  },
+  "gate_shape": {
+    "style_preference_win_rate": ">= 0.70 against baseline",
+    "failure_replay_pass_rate": ">= 0.95",
+    "critical_factual_error_count": "0",
+    "format_violation_rate": "<= 0.02",
+    "human_judge_agreement": "calibrated before blocking releases"
+  },
+  "cases": [
+    {
+      "id": "weekly_review_style_001",
+      "prompt_key": "weekly_review",
+      "prompt_version": "v1",
+      "source": "curated_failure_replay",
+      "regression": true,
+      "preference_reason": [
+        "preferred output names the actual lagging goal",
+        "preferred output uses the user's rain excuse note",
+        "preferred output gives concrete next-week actions",
+        "rejected output is generic encouragement"
+      ],
+      "rubric_avg": 5
+    },
+    {
+      "id": "priority_actionability_001",
+      "prompt_key": "suggest_priority",
+      "prompt_version": "v1",
+      "source": "curated_edge_case",
+      "regression": true,
+      "preference_reason": [
+        "preferred output makes a tradeoff instead of listing everything",
+        "preferred output references 22 problems behind, low HRV, and sleep",
+        "preferred output explains why recovery is part of execution",
+        "rejected output overloads the day"
+      ],
+      "rubric_avg": 4.6
+    },
+    {
+      "id": "goal_design_style_001",
+      "prompt_key": "create_goal_design",
+      "prompt_version": "v1",
+      "source": "curated_style_pair",
+      "regression": false,
+      "preference_reason": [
+        "preferred output turns vague writing improvement into measurable delivery",
+        "preferred output defines weekly cadence",
+        "preferred output avoids abstract self-improvement language"
+      ],
+      "rubric_avg": 4.8
+    }
+  ]
+}

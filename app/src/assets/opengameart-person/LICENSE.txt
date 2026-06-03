@@ -1,0 +1,4 @@
+16x16 person sprite
+Author: pboop
+Source: https://opengameart.org/content/16x16-person-sprite
+License: CC0 https://creativecommons.org/publicdomain/zero/1.0/

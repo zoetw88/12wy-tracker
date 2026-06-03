@@ -1,0 +1,84 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "clipboard-manager:allow-write-text",
+    "clipboard-manager:allow-read-text",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "strava-sync",
+          "cmd": "python",
+          "args": [
+            { "validator": "^.+strava_sync\\.py$" },
+            "sync",
+            "--days",
+            { "validator": "^[0-9]+$" }
+          ]
+        },
+        {
+          "name": "strava-status",
+          "cmd": "python",
+          "args": [
+            { "validator": "^.+strava_sync\\.py$" },
+            "status"
+          ]
+        },
+        {
+          "name": "garmin-login",
+          "cmd": "python",
+          "args": [
+            { "validator": "^.+garmin_sync\\.py$" },
+            "login"
+          ]
+        },
+        {
+          "name": "garmin-collect-import",
+          "cmd": "python",
+          "args": [
+            { "validator": "^.+garmin_sync\\.py$" },
+            "collect-import",
+            "--date",
+            { "validator": "^\\d{4}-\\d{2}-\\d{2}$" },
+            "--profile-id",
+            { "validator": "^[A-Za-z0-9_.-]+$" }
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "http:default",
+      "allow": [
+        { "url": "https://generativelanguage.googleapis.com/*" },
+        { "url": "https://api.openai.com/*" },
+        { "url": "https://api.anthropic.com/*" },
+        { "url": "https://api.deepseek.com/*" },
+        { "url": "https://api.moonshot.cn/*" },
+        { "url": "https://api.moonshot.ai/*" },
+        { "url": "http://localhost:11434/*" },
+        { "url": "http://127.0.0.1:11434/*" }
+      ]
+    },
+    {
+      "identifier": "sql:allow-execute",
+      "allow": [{ "name": "sqlite:twelvewy.db" }]
+    },
+    {
+      "identifier": "sql:allow-select",
+      "allow": [{ "name": "sqlite:twelvewy.db" }]
+    },
+    {
+      "identifier": "sql:allow-load",
+      "allow": [{ "name": "sqlite:twelvewy.db" }]
+    },
+    {
+      "identifier": "sql:allow-close",
+      "allow": [{ "name": "sqlite:twelvewy.db" }]
+    }
+  ]
+}

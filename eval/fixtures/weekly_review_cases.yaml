@@ -1,0 +1,55 @@
+# Synthetic weekly-review fixtures — FAKE data, no real user info.
+# These supply `vars.weekly` (a pre-formatted text summary) for the weeklyReviewPrompt shim.
+# The `weekly` string mimics what the app assembles before calling weeklyReviewPrompt.
+
+- description: "Week-3 review: mixed execution, one goal behind"
+  vars:
+    weekly: |
+      Week 3 / 12 週目標週回顧 (2026-02-16 ~ 2026-02-22)
+
+      【目標 1: 每週跑步 3 次】 本週執行率 33%
+        - 跑步 (bool): 目標 3 次，完成 1 次
+        - 跑步距離 (number): 目標 24km，實際 8km
+
+      【目標 2: 法語 B2 備考】 本週執行率 90%
+        - 聽力練習 (number): 目標 8 題/天 × 5 天 = 40 題，實際 44 題
+        - 作文段落 (number): 目標 1 段/天 × 5 天 = 5 段，實際 5 段
+
+      每日分數:
+        2026-02-17: 65/100，睡眠 6.5h，HRV 52，心情 2
+        2026-02-18: 70/100，睡眠 7h，HRV 55，心情 3
+        2026-02-19: 55/100，睡眠 5.5h，HRV 45，心情 2
+        2026-02-20: 80/100，睡眠 8h，HRV 62，心情 4
+        2026-02-21: 75/100，睡眠 7.5h，HRV 60，心情 3
+
+      本週 went_well: 法語練習穩定，每天都有完成聽力
+      本週 to_improve: 跑步計劃完全沒做，下雨是藉口
+      next_focus: 跑步要排進行事曆，不能讓天氣決定
+      self_score: 65
+      execution_score: 62
+
+- description: "Week-8 review: both goals behind, urgent catch-up needed"
+  vars:
+    weekly: |
+      Week 8 / 12 週目標週回顧 (2026-03-23 ~ 2026-03-29)
+
+      【目標 1: LeetCode 求職準備】 本週執行率 57%
+        - LC 題數 (number): 目標 1 題/天 × 7 天 = 7 題，實際 4 題
+        - 累計至今: 34 題 / 應有 56 題（落後 22 題）
+
+      【目標 2: 每週跑步 3 次】 本週執行率 33%
+        - 跑步 (bool): 目標 3 次，完成 1 次
+        - 累計至今: 9 次 / 應有 24 次（落後 15 次）
+
+      每日分數:
+        2026-03-24: 60/100，睡眠 6h，HRV 50，心情 2
+        2026-03-25: 55/100，睡眠 5.5h，HRV 44，心情 2
+        2026-03-26: 72/100，睡眠 7h，HRV 58，心情 3
+        2026-03-27: 48/100，睡眠 5h，HRV 40，心情 1
+        2026-03-28: 65/100，睡眠 7h，HRV 55，心情 3
+
+      本週 went_well: 週四 LC 完成 3 題 streak
+      本週 to_improve: HRV 低的日子完全沒運動，需要更好的回復策略
+      next_focus: LC 追趕，每天至少 2 題
+      self_score: 52
+      execution_score: 48

@@ -1,0 +1,17 @@
+{
+  "name": "twelvewy-eval",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "promptfoo": "^0.121.13",
+    "esbuild": "^0.28.0"
+  },
+  "scripts": {
+    "build:parser": "npx esbuild ../app/src/llm/parse.ts --bundle=false --platform=node --format=esm --outdir=.gen",
+    "eval": "npm run build:parser && promptfoo eval -c promptfooconfig.yaml",
+    "eval:preferences": "node scripts/run-preference-sanity.mjs",
+    "report:sample": "node scripts/write-sample-report.mjs",
+    "report:preferences": "node scripts/write-preference-report.mjs",
+    "view": "promptfoo view"
+  }
+}

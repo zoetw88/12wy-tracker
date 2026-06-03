@@ -1,0 +1,308 @@
+# Synthetic priority-prompt fixtures — FAKE data, no real user info.
+# These supply all vars for the priorityPrompt shim.
+# The data is intentionally imbalanced so the model has clear gap signals to reference.
+
+- description: "Week-3 scenario: running goal behind, language goal on track"
+  # Priority-specific assertion: output must parse with the real app parser.
+  # Only priority cases carry this — goal-design and weekly-review output prose, not JSON.
+  assert:
+    - type: javascript
+      value: file://assertions/parses_priority.js
+  vars:
+    date: "2026-02-18"
+    weekNumber: 3
+    daysElapsed: 15
+    daysRemaining: 69
+    totalDays: 84
+    yesterdayBadNote: "跑步計畫跳過了，因為下雨"
+    yesterdayTomorrowNote: "明天要補跑，不要再找藉口"
+    goals:
+      - id: 1
+        name: "每週跑步 3 次"
+        description: "備戰半馬，目前每週實際只跑 1 次"
+        why: "維持體能，備戰年底的半馬"
+        target_text: "12 週累計跑量 ≥ 200km、完成 1 次 21km 長跑、每週 3 次不間斷"
+        weight: 20
+        active: 1
+        sort_order: 1
+        persona: "你是專注耐力跑的教練，會給出具體配速與週期安排。"
+        context_json: "{\"weekly_target_km\":\"16\",\"injury_history\":\"右膝舊傷\"}"
+      - id: 2
+        name: "法語 B2 備考"
+        description: "目前 B1+，每天練習聽力+作文"
+        why: "申請移民需要語言成績"
+        target_text: "TCF 達 B2：聽力 ≥ 400、口說 ≥ 400、閱讀 ≥ 400，模擬考 3 次"
+        weight: 30
+        active: 1
+        sort_order: 2
+        persona: null
+        context_json: null
+    items:
+      - id: 101
+        goal_id: 1
+        label: "跑步"
+        type: "bool"
+        target_value: null
+        unit: null
+        options: null
+        sort_order: 1
+        active: 1
+      - id: 102
+        goal_id: 1
+        label: "跑步距離"
+        type: "number"
+        target_value: 8
+        unit: "km"
+        options: null
+        sort_order: 2
+        active: 1
+      - id: 201
+        goal_id: 2
+        label: "聽力練習"
+        type: "number"
+        target_value: 8
+        unit: "題"
+        options: null
+        sort_order: 1
+        active: 1
+      - id: 202
+        goal_id: 2
+        label: "作文段落"
+        type: "number"
+        target_value: 1
+        unit: "段"
+        options: null
+        sort_order: 2
+        active: 1
+    recentMetas:
+      - date: "2026-02-11"
+        week_number: 2
+        top_priority: "法語作文"
+        sleep_hours: 7
+        hrv: 58
+        energy_morning: 3
+        energy_night: 2
+        mood: 3
+        reflection_good: "作文完成"
+        reflection_bad: "跑步跳過"
+        reflection_tomorrow: "跑步補回來"
+        daily_score: 72
+        execution_rate: 0.65
+      - date: "2026-02-17"
+        week_number: 3
+        top_priority: "聽力訓練"
+        sleep_hours: 6.5
+        hrv: 52
+        energy_morning: 2
+        energy_night: 2
+        mood: 2
+        reflection_good: "聽力完成"
+        reflection_bad: "跑步跳過，下雨"
+        reflection_tomorrow: "明天要補跑"
+        daily_score: 65
+        execution_rate: 0.55
+    recentEntries:
+      - date: "2026-02-11"
+        check_item_id: 201
+        value_num: 8
+        value_text: null
+        value_bool: null
+      - date: "2026-02-11"
+        check_item_id: 202
+        value_num: 1
+        value_text: null
+        value_bool: null
+      - date: "2026-02-17"
+        check_item_id: 201
+        value_num: 10
+        value_text: null
+        value_bool: null
+      - date: "2026-02-17"
+        check_item_id: 202
+        value_num: 1
+        value_text: null
+        value_bool: null
+    allEntries:
+      - date: "2026-02-04"
+        check_item_id: 101
+        value_num: null
+        value_text: null
+        value_bool: 1
+      - date: "2026-02-04"
+        check_item_id: 102
+        value_num: 8
+        value_text: null
+        value_bool: null
+      - date: "2026-02-06"
+        check_item_id: 101
+        value_num: null
+        value_text: null
+        value_bool: 1
+      - date: "2026-02-06"
+        check_item_id: 102
+        value_num: 9
+        value_text: null
+        value_bool: null
+      - date: "2026-02-11"
+        check_item_id: 201
+        value_num: 8
+        value_text: null
+        value_bool: null
+      - date: "2026-02-11"
+        check_item_id: 202
+        value_num: 1
+        value_text: null
+        value_bool: null
+      - date: "2026-02-13"
+        check_item_id: 201
+        value_num: 7
+        value_text: null
+        value_bool: null
+      - date: "2026-02-13"
+        check_item_id: 202
+        value_num: 1
+        value_text: null
+        value_bool: null
+      - date: "2026-02-17"
+        check_item_id: 201
+        value_num: 10
+        value_text: null
+        value_bool: null
+      - date: "2026-02-17"
+        check_item_id: 202
+        value_num: 1
+        value_text: null
+        value_bool: null
+
+- description: "Week-7 scenario: both goals behind, high urgency catch-up"
+  # Priority-specific assertion: output must parse with the real app parser.
+  assert:
+    - type: javascript
+      value: file://assertions/parses_priority.js
+  vars:
+    date: "2026-03-18"
+    weekNumber: 7
+    daysElapsed: 43
+    daysRemaining: 41
+    totalDays: 84
+    yesterdayBadNote: "LC 刷題中斷，又滑手機"
+    yesterdayTomorrowNote: "明天要先做 LC 再開 social media"
+    goals:
+      - id: 3
+        name: "LeetCode 求職準備"
+        description: "每天至少 1 題 LC，準備面試"
+        why: "爭取軟體工程師職位"
+        target_text: "累計 84 題、medium 比例 ≥ 60%、mock interview 3 次"
+        weight: 35
+        active: 1
+        sort_order: 1
+        persona: "你是有 FAANG 面試輔導經驗的工程師教練。"
+        context_json: "{\"current_level\":\"easy 熟練，medium 尚可\",\"target_companies\":\"mid-size startup\"}"
+      - id: 4
+        name: "每週跑步 3 次"
+        description: "維持體能"
+        why: "減少久坐傷害"
+        target_text: "每週跑步 3 次不間斷，累計 12 週不中斷"
+        weight: 15
+        active: 1
+        sort_order: 2
+        persona: null
+        context_json: null
+    items:
+      - id: 301
+        goal_id: 3
+        label: "LC 題數"
+        type: "number"
+        target_value: 1
+        unit: "題"
+        options: null
+        sort_order: 1
+        active: 1
+      - id: 401
+        goal_id: 4
+        label: "跑步"
+        type: "bool"
+        target_value: null
+        unit: null
+        options: null
+        sort_order: 1
+        active: 1
+    recentMetas:
+      - date: "2026-03-12"
+        week_number: 6
+        top_priority: "LC"
+        sleep_hours: 7
+        hrv: 55
+        energy_morning: 3
+        energy_night: 2
+        mood: 3
+        reflection_good: "完成 2 題"
+        reflection_bad: "跑步跳過"
+        reflection_tomorrow: "補跑"
+        daily_score: 70
+        execution_rate: 0.6
+      - date: "2026-03-17"
+        week_number: 7
+        top_priority: "LC"
+        sleep_hours: 6
+        hrv: 48
+        energy_morning: 2
+        energy_night: 2
+        mood: 2
+        reflection_good: "完成 1 題"
+        reflection_bad: "LC 中斷，滑手機"
+        reflection_tomorrow: "先 LC 再開 social media"
+        daily_score: 58
+        execution_rate: 0.5
+    recentEntries:
+      - date: "2026-03-12"
+        check_item_id: 301
+        value_num: 2
+        value_text: null
+        value_bool: null
+      - date: "2026-03-17"
+        check_item_id: 301
+        value_num: 1
+        value_text: null
+        value_bool: null
+    allEntries:
+      - date: "2026-02-04"
+        check_item_id: 301
+        value_num: 2
+        value_text: null
+        value_bool: null
+      - date: "2026-02-06"
+        check_item_id: 301
+        value_num: 1
+        value_text: null
+        value_bool: null
+      - date: "2026-02-10"
+        check_item_id: 301
+        value_num: 1
+        value_text: null
+        value_bool: null
+      - date: "2026-02-17"
+        check_item_id: 301
+        value_num: 1
+        value_text: null
+        value_bool: null
+      - date: "2026-02-24"
+        check_item_id: 401
+        value_num: null
+        value_text: null
+        value_bool: 1
+      - date: "2026-03-03"
+        check_item_id: 401
+        value_num: null
+        value_text: null
+        value_bool: 1
+      - date: "2026-03-12"
+        check_item_id: 301
+        value_num: 2
+        value_text: null
+        value_bool: null
+      - date: "2026-03-17"
+        check_item_id: 301
+        value_num: 1
+        value_text: null
+        value_bool: null

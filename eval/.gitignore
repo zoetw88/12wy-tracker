@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.local
+output/
+.promptfoo/
+promptfoo_cache/
+results/
+*.db
+.gen/
