@@ -10,7 +10,7 @@
 ![Ollama](https://img.shields.io/badge/Ollama-local_LLM-111111)
 ![BYOK](https://img.shields.io/badge/AI-BYOK-2E7D32)
 
-Private local desktop app for running a 12 Week Year workflow as a game-like execution system: quests, daily actions, season progress, and inspectable AI coaching.
+Local-first desktop app for running a 12 Week Year workflow as a game-like execution system: quests, daily actions, season progress, and inspectable AI coaching. Your plan stays on your device; AI is optional through your own provider key or local Ollama.
 
 ![12wy-tracker screenshot](screenshots/screenshot.png)
 
@@ -127,3 +127,7 @@ npm run eval:preferences
 ## License
 
 [PolyForm Noncommercial 1.0.0](LICENSE) - personal and research use are OK. Commercial use requires separate permission.
+
+---
+
+Built by **[Zoe](https://zoe-site-ten.vercel.app)** — practical AI products with inspectable behavior, privacy boundaries, and measurable feedback loops.
